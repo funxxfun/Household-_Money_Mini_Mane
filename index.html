@@ -8,16 +8,6 @@
     <!--sakuraの読み込みと、画面レイアウトのスタイルシートの読み込み-->
     <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura-earthly.css" type="text/css">
     <link rel="stylesheet" href="style.css" type="text/css">
-
-    <!--IndexedDB関連のJavaScriptの読み込み-->
-    <script src="indexedDB.js"></script>
-
-    <!-- Chart.jsとグラフ表示のJavaScriptの読み込み -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-    <script src="graph.js"></script>
-
-    <!--フォーム入力チェックのJavaScript読み込み-->
-    <script src="inputCheck.js"></script>
 </head>
 
 <body>
@@ -41,7 +31,7 @@
                         <input name="balance" type="radio" value="支出" onclick ="disableSelectBox(false);" checked>支出
                         <input name="balance" type="radio" value="収入" onclick ="disableSelectBox(true);">収入
                         <label>日付</label>
-                        <input type="date">
+                        <input type="date" id="date">
                         <label>カテゴリ</label>
                         <select id="category">
                             <option>-選択してください-</option>
@@ -60,13 +50,13 @@
                     </div>
                     <div>
                         <label>金額</label>
-                        <input type="number" placeholder="金額を記入">円
+                        <input type="number" id="amount" placeholder="金額を記入">円
                         <label>メモ</label>
-                        <input type="text" placeholder="買ったものを記入">
+                        <input type="text" id="memo" placeholder="買ったものを記入">
                     </div>
                 </div>
                 <div class="submit">
-                    <button>登録する</button>
+                    <button onclick="inputCheck();">登録する</button>
                 </div>
             </section>
             
@@ -89,6 +79,16 @@
         &copy;2022 プロペラ企画
 
     </footer>
+
+    <!--IndexedDB関連のJavaScriptの読み込み-->
+    <script src="indexedDB.js"></script>
+
+    <!-- Chart.jsとグラフ表示のJavaScriptの読み込み -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="graph.js"></script>
+
+    <!--フォーム入力チェックのJavaScript読み込み-->
+    <script src="inputCheck.js"></script>
 </body>
 
 </html>
