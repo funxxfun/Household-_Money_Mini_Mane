@@ -30,58 +30,61 @@
             <button onclick="window.location.hash = '#graph'">グラフ</button>
         </div>
     </header>
-    <article>
-        <!-- 入力 -->
-        <h2 id="input">入力</h2>
-        <section id="inputSection">
-            <div class="inputarea">
-                <div>
-                    <label>収支</label>
-                    <input type="radio" value="支出" checked>支出
-                    <input type="radio" value="収入">収入
-                    <label>日付</label>
-                    <input type="date">
-                    <label>カテゴリ</label>
-                    <select>
-                        <option>-選択してください-</option>
-                        <option>食費</option>
-                        <option>趣味</option>
-                        <option>交際費</option>
-                        <option>交通費</option>
-                        <option>ファッション</option>
-                        <option>クルマ</option>
-                        <option>家賃</option>
-                        <option>保険</option>
-                        <option>税金</option>
-                        <option>その他</option>
-                    </select>
-                </div>
-                <div>
-                    <label>金額</label>
-                    <input type="number" placeholder="金額を記入">円
-                    <label>メモ</label>
-                    <input type="text" placeholder="買ったものを記入">
-                </div>
-            </div>
-            <div class="submit">
-                <button>登録する</button>
-            </div>
-        </section>
-        
-        <!-- 入出金一覧 -->
-        <section id="list">
-            <h2 id="inOutList">入出金一覧</h2>
-            <!-- ここに入出金一覧を表示します。 -->
-        </section>
+    <main>
 
-        <!-- グラフ -->
-        <section>
-            <h2 id="graph">グラフ</h2>
-            <!-- <hr> -->
-            <!-- ここにグラフを表示します。 -->
-        </section>
-
-    </article>
+        <article>
+            <!-- 入力 -->
+            <h2 id="input">入力</h2>
+            <section id="inputSection">
+                <div class="inputarea">
+                    <div>
+                        <label>収支</label>
+                        <input type="radio" value="支出" checked>支出
+                        <input type="radio" value="収入">収入
+                        <label>日付</label>
+                        <input type="date">
+                        <label>カテゴリ</label>
+                        <select>
+                            <option>-選択してください-</option>
+                            <option>食費</option>
+                            <option>趣味</option>
+                            <option>交際費</option>
+                            <option>交通費</option>
+                            <option>ファッション</option>
+                            <option>クルマ</option>
+                            <option>家賃</option>
+                            <option>保険</option>
+                            <option>税金</option>
+                            <option>その他</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>金額</label>
+                        <input type="number" placeholder="金額を記入">円
+                        <label>メモ</label>
+                        <input type="text" placeholder="買ったものを記入">
+                    </div>
+                </div>
+                <div class="submit">
+                    <button>登録する</button>
+                </div>
+            </section>
+            
+            <!-- 入出金一覧 -->
+            <section id="list">
+                <h2 id="inOutList">入出金一覧</h2>
+                <!-- ここに入出金一覧を表示します。 -->
+            </section>
+    
+            <!-- グラフ -->
+            <section>
+                <h2 id="graph">グラフ</h2>
+                <!-- <hr> -->
+                <!-- ここにグラフを表示します。 -->
+            </section>
+    
+        </article>
+    </main>
     <footer>
         &copy;2022 プロペラ企画
 
