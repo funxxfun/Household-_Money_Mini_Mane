@@ -46,10 +46,54 @@ function regist() {
   let amount = document.getElementById("amount").value;
   let memo = document.getElementById("memo").value;
   let category = document.getElementById("category").value;
-  // ラジオボタンが収入を電卓時はカテゴリを「収入」とする
+  // ラジオボタンが収入を選択時はカテゴリを「収入」とする
   if (balance == "収入") {
     category = "収入";
   }
   // データベースにデータを登録する
   insertData(balance, date, category, amount, memo);
+}
+
+// データの挿入
+function insertData(balance, date, category, amount, memo) {
+  // 一意のIDを現在の日時から作成
+  let uniqueID = new Date().getTime().toString();
+  console.log(uniqueID);
+  // DBに登録するための連想配列のデータを作成
+  let data = {
+    id: uniqueID,
+    balance: balance,
+    date: String(date),
+    category: category,
+    amount: amount,
+    memo: memo,
+  }
+  // データベースを開く
+  let database = indexedDB.open(dbName, dbVersion);
+  // データベースを開けなかった時の処理
+  database.onerror = function(event) {
+    console.log("データベースに接続できませんでした");
+  }
+  // データベース開いたらデータの登録を実行
+  database.onsuccess = function(event) {
+    let db = event.target.result;
+    let transaction = db.transaction(storeName, "readwrite");
+    transaction.oncomplete = function(event) {
+      console.log("トランザクション完了");
+    }
+    transaction.onerror = function(event) {
+      console.log("トランザクションエラー");
+    }
+
+    let store = transaction.objectStore(storeName);
+    let addData = store.add(data);
+    addData.onsuccess = function() {
+      console.log("データが登録できました");
+      alert("登録しました");
+    }
+    addData.onerror = function() {
+      console.log("データが登録できませんでした");
+    }
+    db.close();
+  }
 }
