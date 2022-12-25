@@ -23,3 +23,33 @@ database.onsuccess = function(event) {
 database.onerror = function(event) {
   console.log("データベースに接続できませんでした");
 }
+
+// フォームの内容をDBに登録する
+function regist() {
+  // フォームの入力チェック。falseが返されたら登録処理を中断
+  if(inputCheck() == false) {
+    return;
+  }
+
+  // ラジオボタンの取得
+  let radio = document.getElementsByName("balance");
+  let balance;
+  for (let i = 0; i < radio.length; i++) {
+    if (radio[i].checked == true) {
+      balance = radio[i].value;
+      break;
+    }
+  }
+
+  // フォームに入力された値を取得
+  let date = document.getElementById("date").value;
+  let amount = document.getElementById("amount").value;
+  let memo = document.getElementById("memo").value;
+  let category = document.getElementById("category").value;
+  // ラジオボタンが収入を電卓時はカテゴリを「収入」とする
+  if (balance == "収入") {
+    category = "収入";
+  }
+  // データベースにデータを登録する
+  insertData(balance, date, category, amount, memo);
+}
