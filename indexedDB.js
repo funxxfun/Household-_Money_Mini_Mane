@@ -52,6 +52,9 @@ function regist() {
   }
   // データベースにデータを登録する
   insertData(balance, date, category, amount, memo);
+
+  // 入出金一覧を作成
+  createList();
 }
 
 // データの挿入
@@ -95,5 +98,85 @@ function insertData(balance, date, category, amount, memo) {
       console.log("データが登録できませんでした");
     }
     db.close();
+  }
+}
+
+function createList(){
+  // データベースからデータを全件取得
+  let database = indexedDB.open(dbName);
+  database.onsuccess = function(event) {
+    let db = event.target.result;
+    let transaction = db.transaction(storeName, "readonly");
+    let store = transaction.objectStore(storeName);
+    store.getAll().onsuccess = function(data) {
+      console.log(data);
+      let rows = data.target.result;
+
+      let section = document.getElementById("list");
+      // 入金一覧のテーブルを作る
+      // バッククオートでヒアドキュメント
+      let table = `
+        <table>
+          <tr>
+            <th>日付</th>
+            <th>収支</th>
+            <th>カテゴリ</th>
+            <th>金額</th>
+            <th>メモ</th>
+            <th>削除</th>
+          </tr>
+          `;
+          // 入金のデータを表示
+          rows.forEach((element) => {
+            console.log(element);
+            table += `
+            <tr>
+              <td>${element.date}</td>
+              <td>${element.balance}</td>
+              <td>${element.category}</td>
+              <td>${element.amount}</td>
+              <td>${element.memo}</td>
+              <td><button onclick = "deleteData('${element.id}')">×</button></td>
+            </tr>
+            `;
+          });
+          table += `</table>`;
+          section.innerHTML = table;
+    }
+  }
+}
+
+// データの削除
+function deleteData(id) {
+  // データベースを開く
+  let database = indexedDB.open(dbName, dbVersion);
+  database.onupgradeneeded = function(event) {
+    let db = event.target.result;
+  }
+  // 開いたら削除実行
+  database.onsuccess = function(event) {
+    let db = event.target.result;
+    let transaction = db.transaction(storeName, "readwrite");
+    transaction.oncomplete = function(event) {
+      console.log("トランザクション完了");
+    }
+    transaction.onerror = function(event) {
+      console.log("トランザクションエラー");
+    }
+    let store = transaction.objectStore(storeName);
+
+    let deleteData = store.delete(id);
+    deleteData.onsuccess = function(event) {
+      console.log("削除成功");
+      createList();
+    }
+    deleteData.onerror = function(event) {
+      console.log("削除失敗");
+    }
+    db.close();
+  }
+  // データベースを開けなかった時の処理
+  database.onerror = function(event) {
+    console.log("データベースに接続できませんでした");
   }
 }
